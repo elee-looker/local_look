@@ -38,6 +38,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: pivot_yesno {
+    type: yesno
+    sql: ${sale_price} > 50 ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]

@@ -53,17 +53,22 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: users {
+#     type: left_outer
+#     sql_on: ${orders.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
+}
 
-  join: users {
-    type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
+explore: test {
+  view_name: order_items
+  extends: [order_items, inventory_items]
 }
 
 explore: orders {
@@ -89,3 +94,5 @@ explore: user_data {
 explore: users {}
 
 explore: users_nn {}
+
+explore: pdt_stuff {}
