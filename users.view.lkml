@@ -45,6 +45,7 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+    html: <a href="{{ value }}">{{ value }}</a> ;;
   }
 
   dimension: gender {

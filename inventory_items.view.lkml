@@ -11,6 +11,17 @@ view: inventory_items {
     type: number
     sql: ${TABLE}.cost ;;
   }
+#
+#   dimension: quartiles {
+#     type: string
+#     case: {
+#       when: {
+#         sql: ${cost} < (0.25*MAX(${cost}) ;;
+#         label: "1"
+#       }
+#       else: "5"
+#     }
+#   }
 
   dimension_group: created {
     type: time
@@ -44,6 +55,11 @@ view: inventory_items {
       year
     ]
     sql: ${TABLE}.sold_at ;;
+  }
+
+  measure: max_cost {
+    type: max
+    sql: ${cost} ;;
   }
 
   measure: count {

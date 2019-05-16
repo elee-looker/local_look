@@ -46,4 +46,16 @@ view: products {
     type: count
     drill_fields: [id, item_name, inventory_items.count]
   }
+
+  measure: count2 {
+    label: "Drill Count"
+    type: count
+    drill_fields: [id, item_name, inventory_items.count]
+    link: {
+      label: "Show as scatter plot"
+      url: "
+      {% assign vis_config = '{\"type\": \"looker_bar\"}' %}
+      {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
+    }
+  }
 }

@@ -21,7 +21,7 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: status {
+  dimension: status1 {
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -34,7 +34,13 @@ view: orders {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
+  }
+
+  measure: count_pct {
+    type: number
+    sql: ${count}/1109.0 ;;
+    value_format: "0.0%"
   }
 
   # ----- Sets of fields for drilling ------

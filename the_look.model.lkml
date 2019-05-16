@@ -2,20 +2,12 @@ connection: "the_look"
 
 # include all the views
 include: "*.view"
+include: "//local_postgre/*.view"
+# include: "events.explore.lkml"
 
 datagroup: the_look_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
-}
-
-persist_with: the_look_default_datagroup
-
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
 }
 
 explore: hello_world {
@@ -96,3 +88,7 @@ explore: users {}
 explore: users_nn {}
 
 explore: pdt_stuff {}
+
+explore: comma_dt {}
+
+explore: quartile_dt {}
