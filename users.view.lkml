@@ -7,6 +7,13 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: id_string {
+    type: string
+    sql: CASE WHEN ${id} > 150 THEN CAST(${id} AS CHAR)
+              ELSE "< 150"
+         END ;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -60,6 +67,7 @@ view: users {
 
   dimension: state {
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.state ;;
   }
 

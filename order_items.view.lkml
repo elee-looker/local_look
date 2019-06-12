@@ -43,6 +43,16 @@ view: order_items {
     sql: ${sale_price} > 50 ;;
   }
 
+  measure: sale_price_average {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: weird_measure {
+    type: string
+    sql: SUBSTR(CAST(SEC_TO_TIME(${sale_price_average}) AS CHAR), 4, 5) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]

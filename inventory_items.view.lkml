@@ -39,7 +39,7 @@ view: inventory_items {
 
   dimension: product_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.product_id ;;
   }
 
@@ -60,6 +60,7 @@ view: inventory_items {
   measure: max_cost {
     type: max
     sql: ${cost} ;;
+    drill_fields: [product_id, products.item_name]
   }
 
   measure: count {

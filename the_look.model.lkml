@@ -11,6 +11,7 @@ datagroup: the_look_default_datagroup {
 }
 
 explore: hello_world {
+  fields: [orders*]
   join: orders {
     type: left_outer
     sql_on: ${hello_world.order_id} = ${orders.id} ;;
@@ -92,3 +93,5 @@ explore: pdt_stuff {}
 explore: comma_dt {}
 
 explore: quartile_dt {}
+
+explore: events {}
