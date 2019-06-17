@@ -9,6 +9,7 @@ view: random_pdt {
       column: count {}
     }
     datagroup_trigger: the_look_default_datagroup
+    indexes: ["id"]
   }
   dimension: created_date {
     type: date
@@ -19,4 +20,5 @@ view: random_pdt {
   dimension: count {
     type: number
   }
+
 }
