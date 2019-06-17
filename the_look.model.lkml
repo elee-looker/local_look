@@ -6,7 +6,7 @@ include: "//local_postgre/*.view"
 # include: "events.explore.lkml"
 
 datagroup: the_look_default_datagroup {
-  sql_trigger: SELECT EXTRACT(MONTH FROM CURRENT_DATE);;
+  sql_trigger: SELECT EXTRACT(DAY FROM CURRENT_DATE);;
   max_cache_age: "1 hour"
 }
 
