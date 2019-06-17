@@ -7,6 +7,17 @@ view: orders {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: id_currency_string {
+    type: string
+    sql: CONCAT({% parameter currency_param %}, CAST(${TABLE}.id AS CHAR)) ;;
+  }
+
+  dimension: another_param_test {
+    sql: CASE WHEN {% parameter another_param %} = "Eugene" THEN "EUGENE"
+         WHEN {% parameter another_param %} = "Patricia" THEN "PAT"
+         ELSE "" END;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -23,8 +34,17 @@ view: orders {
       yesno
     ]
     sql: ${TABLE}.created_at ;;
+#     link: {
+#       label: "test label"
+#       url: "/explore/thelook/orders/f[orders.created_date]={{
+#     }
   }
-
+#
+#   dimension: date_string {
+#     type: string
+#     sql: CAST(${created_date} AS CHAR) ;;
+#     html:  {% if _value == "now" | date: "%Y-%m-%d" %}<p "background-color: lightblue">{{ rendered_value }}</p> ;;
+#   }
 
   dimension: shifted_week {
     type: date
@@ -63,6 +83,22 @@ view: orders {
     value_format: "0.0%"
   }
 
+  parameter: currency_param {
+    type: string
+    allowed_value: {
+      label: "Dollars"
+      value: "$"
+    }
+    allowed_value: {
+      label: "Euros"
+      value: "EUR"
+    }
+  }
+
+  parameter: another_param {
+    type: string
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
@@ -77,6 +113,10 @@ view: orders {
 
   filter: last_x_days {
     type: number
+  }
+
+  filter: date_filter {
+    type: date
   }
 
   set: orders_test_set {
