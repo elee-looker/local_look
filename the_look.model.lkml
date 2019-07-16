@@ -3,12 +3,8 @@ connection: "the_look"
 # include all the views
 include: "*.view"
 include: "//local_postgre/*.view"
+include: "*.datagroup.lkml"
 # include: "events.explore.lkml"
-
-datagroup: the_look_default_datagroup {
-  sql_trigger: SELECT EXTRACT(DAY FROM CURRENT_DATE);;
-  max_cache_age: "1 hour"
-}
 
 explore: hello_world {
   fields: [orders*]

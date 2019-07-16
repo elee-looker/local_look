@@ -17,6 +17,7 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+#     html: <a href="https://localhost:9999/dashboards/2?Untitled%20Filter=otherthing,%22thing,%20you%20see%22">{{ value }}</a> ;;
   }
 
   dimension: city {

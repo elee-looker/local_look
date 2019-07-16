@@ -46,6 +46,36 @@ view: orders {
 #     html:  {% if _value == "now" | date: "%Y-%m-%d" %}<p "background-color: lightblue">{{ rendered_value }}</p> ;;
 #   }
 
+  parameter: thingo {
+    type: number
+    allowed_value: {
+      label: "January"
+      value: "1"
+    }
+    allowed_value: {
+      label: "February"
+      value: "2"
+    }
+  }
+
+  dimension: other_thingo {
+    type: yesno
+    sql: CASE WHEN MONTH(${created_date}) = {{ thingo._parameter_value }} THEN TRUE
+    WHEN MONTH(DATE_ADD(${created_date}, INTERVAL 1 MONTH)) = {{ thingo._parameter_value }} THEN TRUE
+    ELSE FALSE
+    END;;
+  }
+
+  parameter: date_param_test {
+    type: date
+    suggest_dimension: created_month
+  }
+
+  filter: test_date_filter {
+    type: date
+    sql: ${created_date} >  ;;
+  }
+
   dimension: shifted_week {
     type: date
     sql: CASE
@@ -59,10 +89,12 @@ view: orders {
       END;;
   }
 
-  dimension: status1 {
+  dimension: status {
     type: string
     sql: ${TABLE}.status ;;
-    html: <a href="https://www.google.com/search?q={{ value | replace: "ed", "^," }}">{{ value | replace: "ed", "^,"}}</a> ;;
+#     html: {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>
+#           {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p> {% endif %} ;;
+#     html: <a href="https://www.google.com/search?q={{ value | replace: "ed", "^," }}">{{ value | replace: "ed", "^,"}}</a> ;;
   }
 
   dimension: user_id {
@@ -73,8 +105,17 @@ view: orders {
 
   measure: count {
     type: count
-    html: <a href="https://localhost:9999/dashboards/1">{{ value }}</a> ;;
+#     html: <a href="https://localhost:9999/dashboards/1">{{ value }}</a> ;;
+#     html: {% if orders.status._in_query %}
+#             {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>
+#             {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p>  {% endif %}
+#           {% else %} {{ rendered_value }} {% endif %} ;;
 #     drill_fields: [detail*]
+  }
+
+  measure: max_time {
+    type: max
+    sql: ${created_time} ;;
   }
 
   measure: count_pct {
@@ -94,6 +135,7 @@ view: orders {
       value: "EUR"
     }
   }
+
 
   parameter: another_param {
     type: string
@@ -117,6 +159,12 @@ view: orders {
 
   filter: date_filter {
     type: date
+  }
+
+  filter: practice_name_filter {
+    label: "Practice Name Filter"
+    sql:
+        {% condition %} ${status} {% endcondition %} ;;
   }
 
   set: orders_test_set {
