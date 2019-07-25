@@ -45,11 +45,11 @@ view: order_items {
               WHEN ${TABLE}.sale_price > 50 THEN -100
               ELSE 0 END;;
   }
-
-  dimension: pivot_yesno {
-    type: yesno
-    sql: ${sale_price} > 50 ;;
-  }
+#
+#   dimension: pivot_yesno {
+#     type: yesno
+#     sql: ${sale_price} > 50 ;;
+#   }
 
   measure: sale_price_average {
     type: average
