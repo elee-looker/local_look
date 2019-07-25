@@ -46,7 +46,7 @@ view: order_items {
               ELSE 0 END;;
   }
 
-  dimension: pivot_yesno {
+  dimension: pivot_yesno_testingjslsdfkbj {
     type: yesno
     sql: ${sale_price} > 50 ;;
   }
