@@ -46,10 +46,11 @@ view: order_items {
               ELSE 0 END;;
   }
 
-  dimension: pivot_yesno_testingjslsdfkbj {
-    type: yesno
-    sql: ${sale_price} > 50 ;;
-  }
+#
+#   dimension: pivot_yesno {
+#     type: yesno
+#     sql: ${sale_price} > 50 ;;
+#   }
 
   measure: sale_price_average {
     type: average
