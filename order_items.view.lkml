@@ -35,7 +35,15 @@ view: order_items {
 
   dimension: sale_price {
     type: number
+#     value_format: "0.000"
     sql: ${TABLE}.sale_price ;;
+  }
+
+  dimension: 100orno {
+    type: number
+    sql: CASE WHEN ${TABLE}.sale_price > 100 THEN 100
+              WHEN ${TABLE}.sale_price > 50 THEN -100
+              ELSE 0 END;;
   }
 
   dimension: pivot_yesno {
@@ -45,7 +53,14 @@ view: order_items {
 
   measure: sale_price_average {
     type: average
+    value_format: "0.###"
     sql: ${sale_price} ;;
+  }
+
+  measure: 100orno_avg {
+    type: average
+    sql: ${100orno} ;;
+    value_format: "0.000"
   }
 
   measure: weird_measure {

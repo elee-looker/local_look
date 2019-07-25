@@ -105,6 +105,8 @@ view: orders {
 
   measure: count {
     type: count
+#     html: {% if value > 1000 %}<p style="color: black; background-color: green">{{ rendered_value }}</p>
+#           {% else %}<p style="color: black; background-color: red">{{ rendered_value }}</p>{% endif %} ;;
 #     html: <a href="https://localhost:9999/dashboards/1">{{ value }}</a> ;;
 #     html: {% if orders.status._in_query %}
 #             {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>

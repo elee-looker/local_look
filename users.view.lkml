@@ -20,6 +20,13 @@ view: users {
 #     html: <a href="https://localhost:9999/dashboards/2?Untitled%20Filter=otherthing,%22thing,%20you%20see%22">{{ value }}</a> ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [0, 10, 15, 20, 25, 50]
+    style: integer
+    sql: ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
