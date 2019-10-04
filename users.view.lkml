@@ -47,8 +47,14 @@ view: users {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month
     ]
+    sql: ${TABLE}.created_at ;;
+  }
+
+  dimension_group: all_frames {
+    type: time
     sql: ${TABLE}.created_at ;;
   }
 
@@ -87,6 +93,11 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: max_date {
+    type: date
+    sql: MAX(${created_date}) ;;
   }
 
   # ----- Sets of fields for drilling ------

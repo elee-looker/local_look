@@ -31,15 +31,14 @@ view: orders {
       quarter,
       year,
       day_of_week,
+      day_of_month,
       yesno
     ]
+    group_label: "testing"
     sql: ${TABLE}.created_at ;;
-#     link: {
-#       label: "test label"
-#       url: "/explore/thelook/orders/f[orders.created_date]={{
-#     }
+
   }
-#
+
 #   dimension: date_string {
 #     type: string
 #     sql: CAST(${created_date} AS CHAR) ;;
@@ -107,7 +106,7 @@ view: orders {
     type: count
 #     html: {% if value > 1000 %}<p style="color: black; background-color: green">{{ rendered_value }}</p>
 #           {% else %}<p style="color: black; background-color: red">{{ rendered_value }}</p>{% endif %} ;;
-#     html: <a href="https://localhost:9999/dashboards/1">{{ value }}</a> ;;
+    html: <a href="/looks/7?&f[orders.status]=complete">{{ value }}</a> ;;
 #     html: {% if orders.status._in_query %}
 #             {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>
 #             {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p>  {% endif %}

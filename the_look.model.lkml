@@ -19,6 +19,12 @@ explore: hello_world {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+
+  join: max_date_DT {
+    type: left_outer
+    sql_on: ${users.state} = ${max_date_DT.state} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: inventory_items {
@@ -61,12 +67,24 @@ explore: test {
 }
 
 explore: orders {
+  sql_always_where: ${max_date_sql_dt.max_date}=${users.created_date} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
 
+  join: max_date_sql_dt {
+    type: left_outer
+    sql_on: ${users.state} = ${max_date_sql_dt.state} ;;
+    relationship:  many_to_one
+  }
+
+#   join: max_date_DT {
+#     type: left_outer
+#     sql_on: ${users.state} = ${max_date_DT.state} ;;
+#     relationship: many_to_one
+#   }
 }
 
 explore: products {}
@@ -79,9 +97,21 @@ explore: user_data {
     sql_on: ${user_data.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  join: max_date_DT {
+    type: left_outer
+    sql_on: ${users.state} = ${max_date_DT.state} ;;
+    relationship: many_to_one
+  }
 }
 
-explore: users {}
+explore: users {
+  sql_always_where: ${max_date_DT.max_date}=${users.created_date} ;;
+  join: max_date_DT {
+    type: left_outer
+    sql_on: ${users.state} = ${max_date_DT.state} ;;
+    relationship: many_to_one
+  }
+}
 
 explore: users_nn {}
 
@@ -91,6 +121,10 @@ explore: comma_dt {}
 
 explore: quartile_dt {}
 
-explore: events {}
+explore: fromviewtest {
+  from: events
+  view_name: events
+  fields: [ALL_FIELDS*, -events.value]
+}
 
 explore: random_pdt {}

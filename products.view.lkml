@@ -91,5 +91,9 @@ view: products {
       {% assign vis_config = '{\"type\": \"looker_bar\"}' %}
       {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
     }
+    link: {
+      label: "goog test"
+      url: "https://www.google.com"
+    }
   }
 }
