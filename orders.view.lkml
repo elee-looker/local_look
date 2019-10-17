@@ -39,6 +39,17 @@ view: orders {
 
   }
 
+  dimension_group: created_duration {
+    type: duration
+    sql_start: ${created_date} ;;
+    sql_end: DATE_ADD(${created_date}, INTERVAL 1 DAY) ;;
+    intervals: [day]
+  }
+
+  measure: add_durations {
+    type: sum
+    sql: ${days_created_duration} ;;
+  }
 #   dimension: date_string {
 #     type: string
 #     sql: CAST(${created_date} AS CHAR) ;;
@@ -96,6 +107,21 @@ view: orders {
 #     html: <a href="https://www.google.com/search?q={{ value | replace: "ed", "^," }}">{{ value | replace: "ed", "^,"}}</a> ;;
   }
 
+  dimension: statusnumber {
+    type: number
+    sql: CASE WHEN ${status}="pending" THEN 1 ELSE 0 END ;;
+  }
+
+  dimension: statuswithnull {
+    type: number
+    sql: CASE WHEN ${status}="pending" THEN NULL ELSE 0 END ;;
+    html: {% if orders.statusnumber._value == 0 %}
+    <p style="background-color: green">{{ rendered_value }}</p>
+    {% else %}
+    <p style="background-color: red">{{ rendered_value }}</p>
+    {% endif %};;
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -112,6 +138,11 @@ view: orders {
 #             {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p>  {% endif %}
 #           {% else %} {{ rendered_value }} {% endif %} ;;
 #     drill_fields: [detail*]
+  }
+
+  measure: value_format_count {
+    type: count
+    html: {{ value | round: -2 }} ;;
   }
 
   measure: max_time {

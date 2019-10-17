@@ -90,6 +90,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: wrong_id_type {
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]

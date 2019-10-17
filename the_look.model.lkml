@@ -67,18 +67,18 @@ explore: test {
 }
 
 explore: orders {
-  sql_always_where: ${max_date_sql_dt.max_date}=${users.created_date} ;;
+#   sql_always_where: ${max_date_sql_dt.max_date}=${users.created_date} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
 
-  join: max_date_sql_dt {
-    type: left_outer
-    sql_on: ${users.state} = ${max_date_sql_dt.state} ;;
-    relationship:  many_to_one
-  }
+#   join: max_date_sql_dt {
+#     type: left_outer
+#     sql_on: ${users.state} = ${max_date_sql_dt.state} ;;
+#     relationship:  many_to_one
+#   }
 
 #   join: max_date_DT {
 #     type: left_outer
@@ -105,12 +105,12 @@ explore: user_data {
 }
 
 explore: users {
-  sql_always_where: ${max_date_DT.max_date}=${users.created_date} ;;
-  join: max_date_DT {
-    type: left_outer
-    sql_on: ${users.state} = ${max_date_DT.state} ;;
-    relationship: many_to_one
-  }
+#   sql_always_where: ${max_date_DT.max_date}=${users.created_date} ;;
+#   join: max_date_DT {
+#     type: left_outer
+#     sql_on: ${users.state} = ${max_date_DT.state} ;;
+#     relationship: many_to_one
+#   }
 }
 
 explore: users_nn {}

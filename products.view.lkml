@@ -37,6 +37,10 @@ view: products {
   dimension: item_name {
     type: string
     sql: ${TABLE}.item_name ;;
+    link: {
+      label: "test link"
+      url: "www.google.com"
+    }
   }
 
   dimension: rank {
