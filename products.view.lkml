@@ -7,6 +7,11 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: id_bool {
+    type: yesno
+    sql: CASE WHEN ${id} < 15 THEN TRUE ELSE FALSE END ;;
+  }
+
   dimension: mandy_test {
     type: number
     sql: ${TABLE}.id ;;
@@ -51,6 +56,12 @@ view: products {
   dimension: retail_price {
     type: number
     sql: ${TABLE}.retail_price ;;
+  }
+
+  dimension: retail_price_with_6decimals {
+    type: number
+    sql: ${retail_price} ;;
+    value_format: "$0.######"
   }
 
   dimension: retail_price_with_nulls_and_zeros {

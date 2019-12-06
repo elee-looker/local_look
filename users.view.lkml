@@ -97,12 +97,13 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
   }
 
   measure: max_date {
     type: date
     sql: MAX(${created_date}) ;;
+#     drill_fields: []
   }
 
   # ----- Sets of fields for drilling ------

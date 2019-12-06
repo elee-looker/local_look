@@ -18,6 +18,24 @@ view: orders {
          ELSE "" END;;
   }
 
+  dimension: dynamicdatelable {
+    type: number
+    label: "{{'now' | date: \"%s\" | minus : 86400 | date:\"%b %d, %Y\" | uri_encode }}"
+    sql: 86400 ;;
+  }
+
+#    | replace:\"+\",\"%20\"
+
+  filter: filter_date_test {
+    type: date
+    sql: ${created_date} < {% date_end filter_date_test %} ;;
+  }
+
+  dimension: datethingo {
+    type: date
+    sql: {% date_end filter_date_test %} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -39,17 +57,6 @@ view: orders {
 
   }
 
-  dimension_group: created_duration {
-    type: duration
-    sql_start: ${created_date} ;;
-    sql_end: DATE_ADD(${created_date}, INTERVAL 1 DAY) ;;
-    intervals: [day]
-  }
-
-  measure: add_durations {
-    type: sum
-    sql: ${days_created_duration} ;;
-  }
 #   dimension: date_string {
 #     type: string
 #     sql: CAST(${created_date} AS CHAR) ;;
@@ -66,6 +73,21 @@ view: orders {
       label: "February"
       value: "2"
     }
+  }
+
+  parameter: yesnotest {
+    type: unquoted
+    allowed_value: {
+      value: "thing"
+    }
+    allowed_value: {
+      value: "otherthing"
+    }
+  }
+
+  dimension: yesnodim {
+    type: number
+    sql: {% if yesnotest._parameter_value == "thing" %} 1 {% elsif yesnotest._parameter_value == "otherthing" %}2{% endif %} ;;
   }
 
   dimension: other_thingo {
@@ -102,6 +124,10 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    link: {
+      url: "www.google.com"
+      label: "the easiest link {{ value }}"
+    }
 #     html: {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>
 #           {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p> {% endif %} ;;
 #     html: <a href="https://www.google.com/search?q={{ value | replace: "ed", "^," }}">{{ value | replace: "ed", "^,"}}</a> ;;
@@ -132,12 +158,18 @@ view: orders {
     type: count
 #     html: {% if value > 1000 %}<p style="color: black; background-color: green">{{ rendered_value }}</p>
 #           {% else %}<p style="color: black; background-color: red">{{ rendered_value }}</p>{% endif %} ;;
-    html: <a href="/looks/7?&f[orders.status]=complete">{{ value }}</a> ;;
+#     html: <a href="/looks/7?&f[orders.status]=complete">{{ value }}</a> ;;
 #     html: {% if orders.status._in_query %}
 #             {% if orders.status._value == "pending" %} <p style="color: gray; background-color: lightblue">{{ rendered_value }}</p>
 #             {% elsif orders.status._value == "complete" %} <p style="color: black; background-color: green">{{ rendered_value }}</p>  {% endif %}
 #           {% else %} {{ rendered_value }} {% endif %} ;;
-#     drill_fields: [detail*]
+    drill_fields: [detail*]
+  }
+
+  measure: linkedvaluegtest {
+    type: number
+    sql: ${count} ;;
+    html: {{ count._linked_value }} ;;
   }
 
   measure: value_format_count {
