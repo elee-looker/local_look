@@ -136,3 +136,7 @@ explore: fromviewtest {
 }
 
 explore: random_pdt {}
+
+explore: products_pdt {
+
+}

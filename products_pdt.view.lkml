@@ -5,6 +5,7 @@ view: products_pdt {
        ;;
     sql_trigger_value: SELECT HOUR(CURTIME()) ;;
     publish_as_db_view: yes
+    indexes: ["id"]
   }
 
   measure: count {
