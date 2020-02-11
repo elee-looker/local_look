@@ -4,6 +4,7 @@ view: products_pdt {
       FROM demo_db.products
        ;;
     sql_trigger_value: SELECT HOUR(CURTIME()) ;;
+    publish_as_db_view: yes
   }
 
   measure: count {
