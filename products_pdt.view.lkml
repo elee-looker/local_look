@@ -3,6 +3,9 @@ view: products_pdt {
     sql: SELECT brand, category, department, id
       FROM demo_db.products
        ;;
+    sql_trigger_value: SELECT HOUR(CURTIME()) ;;
+    publish_as_db_view: yes
+    indexes: ["id"]
   }
 
   measure: count {

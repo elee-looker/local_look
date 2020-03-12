@@ -225,6 +225,18 @@ view: orders {
     type: date
   }
 
+  parameter: yearstring {
+    allowed_value: {
+      label: "2010"
+      value: "01/01/2010"
+    }
+  }
+
+  filter: date_2year_filter {
+    # hidden: yes
+    sql: DATE_ADD(STR_TO_DATE({% parameter yearstring %}, '%d/%m/%Y') , INTERVAL -2 DAY) < ${created_date};;
+  }
+
   filter: practice_name_filter {
     label: "Practice Name Filter"
     sql:
