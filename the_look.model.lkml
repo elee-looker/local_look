@@ -6,6 +6,10 @@ include: "//local_postgre/*.view"
 include: "*.datagroup.lkml"
 # include: "events.explore.lkml"
 
+datagroup: somedatagroup {
+  sql_trigger: SELECT 1 ;;
+}
+
 explore: hello_world {
   fields: [orders*]
   join: orders {

@@ -5,7 +5,6 @@ include: "*.view.lkml"                       # include all views in this project
 # include: "inventory_items.explore.lkml"
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
-
 explore: users {}
 # explore: inventory_items {}
 # # Select the views that should be a part of this model,
