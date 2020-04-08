@@ -10,6 +10,8 @@ datagroup: somedatagroup {
   sql_trigger: SELECT 1 ;;
 }
 
+explore: huge_strings_dt {}
+
 explore: hello_world {
   fields: [orders*]
   join: orders {
