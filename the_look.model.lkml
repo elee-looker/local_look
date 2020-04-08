@@ -93,15 +93,15 @@ explore: orders {
 #   }
 }
 
-explore: mygodman {
-  view_name: products
-  always_filter: {
-    filters: {
-      field: id_bool
-      value: ""
-    }
-  }
-}
+# explore: mygodman {
+#   view_name: products
+#   always_filter: {
+#     filters: {
+#       field: id_bool
+#       value: ""
+#     }
+#   }
+# }
 
 explore: schema_migrations {}
 
